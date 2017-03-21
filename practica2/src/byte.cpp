@@ -27,7 +27,7 @@ void onByte(Byte &b){
 }
 
 void offByte(Byte &b){
-	b = 0x0;
+  b = 0x0;
 }
 
 void asignarByte(Byte &b, const bool v[]){
@@ -40,9 +40,9 @@ void asignarByte(Byte &b, const bool v[]){
 }
 
 void volcarByte(Byte b, bool v[]){
-	for(int i=0; i<8; i++){
-		v[i] = getBit(b,i);
-	}
+  for(int i=0; i<8; i++){
+    v[i] = getBit(b,i);
+  }
 }
 
 void encendidosByte(Byte b, int posic[], int &cuantos){
