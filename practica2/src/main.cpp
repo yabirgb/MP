@@ -19,19 +19,19 @@ int main()
 
     offByte(b);
     cout << "\nbyte apagado bits: ";
-	 imprimirByte(b); cout << endl;
+    imprimirByte(b); cout << endl;
 
 	 // enciendo dos bits
     cout << "\nInicializo el byte a partir de un vector de bool ";
     asignarByte(b,inicial);
-	 imprimirByte(b); cout << endl;
+    imprimirByte(b); cout << endl;
     cout << "\nAhora enciendo los bits 0, 1 y 2 con la funcion on \n";
     onBit(b,0);
-	 imprimirByte(b); cout << endl;
+    imprimirByte(b); cout << endl;
     onBit(b,1);
-	 imprimirByte(b); cout << endl;
+    imprimirByte(b); cout << endl;
     onBit(b,2);
-	 imprimirByte(b); cout << endl;
+    imprimirByte(b); cout << endl;
 
     cout << "\nLos bits encendidos estan en las posiciones: ";
     encendidosByte(b,posiciones, size);
@@ -42,11 +42,11 @@ int main()
 
     cout << "\nTodos encendidos: ";
     onByte(b);
-	 imprimirByte(b); cout << endl;
+    imprimirByte(b); cout << endl;
 
     cout << "Todos apagados: ";
     offByte(b);
-	 imprimirByte(b); cout << endl;
+    imprimirByte(b); cout << endl;
 
     cout << "\n\nEjemplo 1 \n";
     // Completar
