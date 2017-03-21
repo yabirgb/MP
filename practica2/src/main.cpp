@@ -50,26 +50,26 @@ int main()
 
     cout << "\n\nEjemplo 1 \n";
     // Completar
- 	 onByte(b);
- 	 imprimirByte(b); cout << endl;
- 	 for(int i=0; i<8; i++){
- 	 	offBit(b,7-i);
- 	 	imprimirByte(b); cout << endl;
- 	 	onBit(b,7-i);
- 	 }
+    onByte(b);
+    imprimirByte(b); cout << endl;
+    for(int i=0; i<8; i++){
+      offBit(b,7-i);
+      imprimirByte(b); cout << endl;
+      onBit(b,7-i);
+    }
  	 
     cout << "\nAhora la animacion\nEjemplo 2 \n";
     // Completar
-	 imprimirByte(b); cout << endl;
-	 for(int i=0; i<4; i++){
-	 	offBit(b,i); offBit(b,7-i);
-	 	imprimirByte(b); cout << endl;
-	 }
-	 for(int i=4; i<8; i++){
-	 	onBit(b,i); onBit(b,7-i);
-	 	imprimirByte(b); cout << endl;
-	 }
+    imprimirByte(b); cout << endl;
+    for(int i=0; i<4; i++){
+      offBit(b,i); offBit(b,7-i);
+      imprimirByte(b); cout << endl;
+    }
+    for(int i=4; i<8; i++){
+      onBit(b,i); onBit(b,7-i);
+      imprimirByte(b); cout << endl;
+    }
 	 
 	 
-	 return 0;
+    return 0;
 }
