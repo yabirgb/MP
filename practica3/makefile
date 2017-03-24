@@ -39,9 +39,6 @@ $(OBJ)/imagen.o: $(SRC)/imagen.cpp $(INC)/imagen.h $(INC)/pgm.h $(INC)/byte.h
 $(OBJ)/pgm.o: $(SRC)/pgm.cpp $(INC)/pgm.h
 	g++ $(OPT) -c $(SRC)/pgm.cpp -I$(INC) -o $@
 
-$(OBJ)/byte.o: $(SRC)/byte.cpp $(INC)/byte.h
-	g++ $(OPT) -c $(SRC)/byte.cpp -I$(INC) -o $@
-
 clean: 
 	rm -f $(OBJ)/*.o $(BIN)/* $(LIB)/* $(ZIP)/*
 	
