@@ -1,6 +1,6 @@
 /**
    @file testplano.cpp
-   @brief Lee la imagen imagenes/giotexto.pgm y extrae el plano 6 en plano6.pgm y el 
+   @brief Lee la imagen imagenes/giotexto.pgm y extrae el plano 6 en plano6.pgm y el
    plano 0 en plano0.pgm
    @author MP-DGIM - Grupo A
 
@@ -22,7 +22,7 @@ int main(){
 	}
 
  	plano = origen.plano(6);
-  	
+
 	// Guardar la imagen plano en el fichero plano6.pgm
 	if (plano.escribirImagen(imagen2, true)){
 		// si todo va bien
@@ -31,10 +31,10 @@ int main(){
 	} else { // si error
 		cerr << "Error guardando la imagen " << imagen2;
 		return 1;
-	}	
-	
+	}
+
 	plano = origen.plano(0);
-	
+
 	// Guardar la imagen plano en el fichero plano0.pgm
 	if (plano.escribirImagen(imagen3, true)){
 		// si todo va bien
@@ -43,7 +43,7 @@ int main(){
 	} else { // si error
 		cerr << "Error guardando la imagen " << imagen3;
 		return 1;
-	}	
+	}
 
 	return 0;
 }
