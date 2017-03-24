@@ -8,7 +8,7 @@ ZIP=./zip
 # Opciones de compilación
 # -Wall muestra todas las advertencias
 # -g compila en modo "depuración"
-OPT=-Wall -g 
+OPT=-Wall -g
 # Nombre de la práctica
 PRJ=practica3
 
@@ -18,29 +18,27 @@ all: $(BIN)/testarteASCII $(BIN)/testplano $(BIN)/testimagen
 
 #completar
 $(BIN)/testarteASCII:
-	
+
 
 #completar
-$(BIN)/testplano:
-	
-
+$(BIN)/testplano $(OBJ)/testimagen.o $(OBJ)/byte.o:
+	g++ $(OBJ)/testimagen.o -L$(LIB) -limagen -o $@
 $(BIN)/testimagen: $(OBJ)/testimagen.o $(LIB)/libimagen.a
 	g++ $(OBJ)/testimagen.o -L$(LIB) -limagen -o $@
-	
 $(LIB)/libimagen.a: $(OBJ)/imagen.o $(OBJ)/pgm.o
 	ar rvs $@ $(OBJ)/imagen.o $(OBJ)/pgm.o
-
 $(OBJ)/testimagen.o: $(SRC)/testimagen.cpp $(INC)/imagen.h $(INC)/byte.h
 	g++ $(OPT) -c $(SRC)/testimagen.cpp -I$(INC) -o $@
-
 $(OBJ)/imagen.o: $(SRC)/imagen.cpp $(INC)/imagen.h $(INC)/pgm.h $(INC)/byte.h
 	g++ $(OPT) -c $(SRC)/imagen.cpp -I$(INC) -o $@
-	
+$(OBJ)/byte.o: $(SRC)/byte.cpp $(INC)/byte.h
+	g++ $(OPT) -c $(SRC)/byte.cpp -I$(INC) -o $@
 $(OBJ)/pgm.o: $(SRC)/pgm.cpp $(INC)/pgm.h
 	g++ $(OPT) -c $(SRC)/pgm.cpp -I$(INC) -o $@
+$(OBJ)/testplano.o: $(SRC)/testplano.cpp $(INC)/imagen.h $(INC)/byte.h
+	g++ $(OPT) -c $(SRC)/testplano.cpp -I$(INC) -o $@
 
-clean: 
+clean:
 	rm -f $(OBJ)/*.o $(BIN)/* $(LIB)/* $(ZIP)/*
-	
 zip: clean
 	zip -r $(ZIP)/$(PRJ).zip *
