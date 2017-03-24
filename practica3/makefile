@@ -16,11 +16,34 @@ PRJ=practica3
 # que se sustituyen por su valor definido anteriormente
 all: $(BIN)/testarteASCII $(BIN)/testplano $(BIN)/testimagen
 
-# completar
+#completar
+$(BIN)/testarteASCII:
+	
+
+#completar
+$(BIN)/testplano:
+	
+
+$(BIN)/testimagen: $(OBJ)/testimagen.o $(LIB)/libimagen.a
+	g++ $(OBJ)/testimagen.o -L$(LIB) -limagen -o $@
+	
+$(LIB)/libimagen.a: $(OBJ)/imagen.o $(OBJ)/pgm.o
+	ar rvs $@ $(OBJ)/imagen.o $(OBJ)/pgm.o
+
+$(OBJ)/testimagen.o: $(SRC)/testimagen.cpp $(INC)/imagen.h $(INC)/byte.h
+	g++ $(OPT) -c $(SRC)/testimagen.cpp -I$(INC) -o $@
+
+$(OBJ)/imagen.o: $(SRC)/imagen.cpp $(INC)/imagen.h $(INC)/pgm.h $(INC)/byte.h
+	g++ $(OPT) -c $(SRC)/imagen.cpp -I$(INC) -o $@
+	
+$(OBJ)/pgm.o: $(SRC)/pgm.cpp $(INC)/pgm.h
+	g++ $(OPT) -c $(SRC)/pgm.cpp -I$(INC) -o $@
+
+$(OBJ)/byte.o: $(SRC)/byte.cpp $(INC)/byte.h
+	g++ $(OPT) -c $(SRC)/byte.cpp -I$(INC) -o $@
 
 clean: 
 	rm -f $(OBJ)/*.o $(BIN)/* $(LIB)/* $(ZIP)/*
 	
 zip: clean
 	zip -r $(ZIP)/$(PRJ).zip *
-

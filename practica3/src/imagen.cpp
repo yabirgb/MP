@@ -1,5 +1,6 @@
 #include "byte.h"
 #include "imagen.h"
+#include "pgm.h"
 
 Imagen::Imagen(){
 	nfilas = 0;
@@ -35,7 +36,7 @@ void Imagen::set(int y, int x, Byte v){
 	datos[i] = v;
 }
 
-Byte Imagen::get(int y, int x, Byte v){
+Byte Imagen::get(int y, int x) const{
 	int i = y*ncolumnas+x;
 	return datos[i];
 }
@@ -45,9 +46,33 @@ void Imagen::setPos(int i, Byte v){
 }
 
 Byte Imagen::getPos(int i) const{
-	Return datos[i];
+	return datos[i];
 }
 
-bool Image::leerImagen(const char nombreFichero[]){
+bool Imagen::leerImagen(const char nombreFichero[]){
+	bool exito = false;
+	if(infoPGM(nombreFichero, nfilas, ncolumnas) == IMG_PGM_BINARIO){
+		if(nfilas*ncolumnas < MAXPIXELS){
+			exito = leerPGMBinario(nombreFichero, datos, nfilas, ncolumnas);
+		}
+	}
+	return exito;
+}
+
+bool Imagen::escribirImagen(const char nombreFichero[], bool esBinario) const{
+	bool exito = false;
+	if(esBinario){
+		exito = escribirPGMBinario(nombreFichero, datos, nfilas, ncolumnas);
+	}
+	return exito;
+}
+
+/*
+Imagen Imagen::plano (int k) const{
 	
 }
+
+bool Imagen::aArteASCII(const char grises[], char arteASCII[], int maxlong) const{
+	
+}
+*/
