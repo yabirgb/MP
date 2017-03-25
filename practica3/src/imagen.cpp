@@ -1,6 +1,7 @@
 #include "byte.h"
 #include "imagen.h"
 #include "pgm.h"
+#include <string.h>
 
 Imagen::Imagen(){
     nfilas = 0;
@@ -90,8 +91,24 @@ Imagen Imagen::plano (int k) const{
   return nueva;
 }
 
-/*
-bool Imagen::aArteASCII(const char grises[], char arteASCII[], int maxlong) const{
 
+bool Imagen::aArteASCII(const char grises[], char arteASCII[], int maxlong) const{
+  bool cabe = false;
+
+  if (nfilas*ncolumnas + nfilas <= maxlong){
+    cabe = true;
+
+    for (int i = 0; i < ncolumnas; i++){
+      for(int j = 0; j < nfilas; j++){
+        //Cojo cada byte de la imagen
+        Byte byte = this->get(j,i);
+        //Compruebo que simbolo le correspondiente
+        char simbolo = grises[byte*strlen(grises)/256];
+        arteASCII[j*ncolumnas + i] = simbolo;
+      }
+      arteASCII[i*ncolumnas] = '\n';
+    }
+  }
+
+  return cabe;
 }
-*/

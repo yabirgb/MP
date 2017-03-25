@@ -27,11 +27,17 @@ $(BIN)/testplano: $(OBJ)/testplano.o $(OBJ)/byte.o $(LIB)/libimagen.a
 $(BIN)/testimagen: $(OBJ)/testimagen.o $(LIB)/libimagen.a
 	g++ $(OBJ)/testimagen.o -L$(LIB) -limagen -o $@
 
+$(BIN)/testarteASCII: $(OBJ)/testarteASCII.o $(LIB)/libimagen.a
+	g++ $(OBJ)/testarteASCII.o -L$(LIB) -limagen -o $@
+
 $(LIB)/libimagen.a: $(OBJ)/imagen.o $(OBJ)/pgm.o $(OBJ)/byte.o
 	ar rvs $@ $(OBJ)/imagen.o $(OBJ)/pgm.o $(OBJ)/byte.o
 
 $(OBJ)/testimagen.o: $(SRC)/testimagen.cpp $(INC)/imagen.h $(INC)/byte.h
 	g++ $(OPT) -c $(SRC)/testimagen.cpp -I$(INC) -o $@
+
+$(OBJ)/testarteASCII.o: $(SRC)/testarteASCII.cpp $(INC)/imagen.h $(INC)/byte.h
+	g++ $(OPT) -c $(SRC)/testarteASCII.cpp -I$(INC) -o $@
 
 $(OBJ)/imagen.o: $(SRC)/imagen.cpp $(INC)/imagen.h $(INC)/pgm.h $(INC)/byte.h
 	g++ $(OPT) -c $(SRC)/imagen.cpp -I$(INC) -o $@
