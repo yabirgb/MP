@@ -98,13 +98,13 @@ bool Imagen::aArteASCII(const char grises[], char arteASCII[], int maxlong) cons
   if (nfilas*ncolumnas + nfilas <= maxlong){
     cabe = true;
 
-    for (int i = 0; i < ncolumnas; i++){
-      for(int j = 0; j < nfilas; j++){
+    for (int i = 0; i < nfilas; i++){
+      for(int j = 0; j < ncolumnas; j++){
         //Cojo cada byte de la imagen
-        Byte byte = this->get(j,i);
+        Byte byte = this->get(i,j);
         //Compruebo que simbolo le correspondiente
         char simbolo = grises[byte*strlen(grises)/256];
-        arteASCII[j*ncolumnas + i] = simbolo;
+        arteASCII[i*ncolumnas + j] = simbolo;
       }
       arteASCII[i*ncolumnas] = '\n';
     }
