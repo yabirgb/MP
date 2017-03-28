@@ -16,11 +16,6 @@ PRJ=practica3
 # que se sustituyen por su valor definido anteriormente
 all: $(BIN)/testarteASCII $(BIN)/testplano $(BIN)/testimagen
 
-#completar
-$(BIN)/testarteASCII:
-
-
-#completar
 $(BIN)/testplano: $(OBJ)/testplano.o $(OBJ)/byte.o $(LIB)/libimagen.a
 	g++ $(OBJ)/testplano.o -L$(LIB) -limagen -o $@
 
