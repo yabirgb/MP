@@ -81,7 +81,7 @@ Imagen Imagen::plano (int k) const{
       //Miro si la posición k del byte de la imagen está encendida
       bool estado = getBit(byte,k);
       //Coloco el bit más significativo a 1 si está encencido
-      if (estado == true)
+      if (estado)
         onBit(nuevo,7);
       //Asigno el nuevo byte a la posición i,j de la imágen
       nueva.set(j,i, nuevo);
@@ -102,7 +102,7 @@ bool Imagen::aArteASCII(const char grises[], char arteASCII[], int maxlong) cons
       for(int j = 0; j < ncolumnas; j++){
         //Cojo cada byte de la imagen
         Byte byte = this->get(i,j);
-        //Compruebo que simbolo le correspondiente
+        //Compruebo que símbolo le corresponde
         char simbolo = grises[byte*strlen(grises)/256];
         arteASCII[i*ncolumnas + j] = simbolo;
       }
