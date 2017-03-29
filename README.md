@@ -7,4 +7,4 @@
 
 ## Contenido
 
-En este proyecto se encuentras las distintas prácticas para la asignatura de metodología de la programación.
+En este proyecto se encuentran las distintas prácticas para la asignatura de metodología de la programación.
