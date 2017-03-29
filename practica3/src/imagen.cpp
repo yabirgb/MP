@@ -1,7 +1,7 @@
 #include "byte.h"
 #include "imagen.h"
 #include "pgm.h"
-#include <string.h>
+#include <cstring>
 
 Imagen::Imagen(){
     nfilas = 0;
@@ -52,7 +52,9 @@ Byte Imagen::getPos(int i) const{
 
 bool Imagen::leerImagen(const char nombreFichero[]){
     bool exito = false;
+    // Comprobamos que sea PGM BINARIO
     if(infoPGM(nombreFichero, nfilas, ncolumnas) == IMG_PGM_BINARIO){
+      // Comprobamos que no supere el tamaño máximo
       if(nfilas*ncolumnas < MAXPIXELS){
         exito = leerPGMBinario(nombreFichero, datos, nfilas, ncolumnas);
       }
@@ -93,10 +95,10 @@ Imagen Imagen::plano (int k) const{
 
 
 bool Imagen::aArteASCII(const char grises[], char arteASCII[], int maxlong) const{
-  bool cabe = false;
+  bool tamanio_correcto = false;
 
   if (nfilas*ncolumnas + nfilas <= maxlong){
-    cabe = true;
+    tamanio_correcto = true;
 
     for (int i = 0; i < nfilas; i++){
       for(int j = 0; j < ncolumnas; j++){
@@ -106,9 +108,14 @@ bool Imagen::aArteASCII(const char grises[], char arteASCII[], int maxlong) cons
         char simbolo = grises[byte*strlen(grises)/256];
         arteASCII[i*ncolumnas + j] = simbolo;
       }
+      //añado el salto carro al final de cada línea
       arteASCII[i*ncolumnas] = '\n';
     }
+
+    //Agrego al final de la cadena el salto de línea y el caracter
+    arteASCII[(nfilas-1)*ncolumnas+ncolumnas] = '\n';
+    arteASCII[(nfilas-1)*ncolumnas+ncolumnas+1] = '\0';
   }
 
-  return cabe;
+  return tamanio_correcto;
 }
