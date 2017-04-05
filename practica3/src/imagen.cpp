@@ -88,13 +88,13 @@ bool Imagen::escribirImagen(const char nombreFichero[], bool esBinario) const{
 
 
 Imagen Imagen::plano (int k) const{
-  Imagen nueva(nfilas, ncolumnas);
+  Imagen nueva(filas(), columnas());
 
   if (k < 7 && k >= 0){
 
 
-    for (int i = 0; i < ncolumnas; i++){
-      for(int j = 0; j < nfilas; j++){
+    for (int i = 0; i < columnas(); i++){
+      for(int j = 0; j < filas(); j++){
         //Cojo cada byte de la imagen
         Byte byte = this->get(j,i);
         //Creo un byte con todo 0s
@@ -118,24 +118,24 @@ Imagen Imagen::plano (int k) const{
 bool Imagen::aArteASCII(const char grises[], char arteASCII[], int maxlong) const{
   bool tamanio_correcto = false;
 
-  if (maxlong < MAXPIXELS  && nfilas*(ncolumnas+1) <= maxlong){
+  if (filas()*(columnas()+1) < maxlong){
     tamanio_correcto = true;
 
-    for (int i = 0; i < nfilas; i++){
-      for(int j = 0; j < ncolumnas; j++){
+    for (int i = 0; i < filas(); i++){
+      for(int j = 0; j < columnas(); j++){
         //Cojo cada byte de la imagen
         Byte byte = this->get(i,j);
         //Compruebo que símbolo le corresponde
         char simbolo = grises[byte*strlen(grises)/256];
-        arteASCII[i*ncolumnas + j] = simbolo;
+        arteASCII[i*columnas() + j] = simbolo;
       }
       //añado el salto de carro al final de cada línea
-      arteASCII[i*ncolumnas] = '\n';
+      arteASCII[i*columnas()] = '\n';
     }
 
     //Agrego al final de la cadena el salto de línea y el caracter
-    arteASCII[(nfilas-1)*ncolumnas+ncolumnas] = '\n';
-    arteASCII[(nfilas-1)*ncolumnas+ncolumnas+1] = '\0';
+    arteASCII[(filas()-1)*columnas()+columnas()] = '\n';
+    arteASCII[(filas()-1)*columnas()+columnas()+1] = '\0';
   }
 
   return tamanio_correcto;
