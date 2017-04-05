@@ -9,18 +9,24 @@ Imagen::Imagen(){
 }
 
 Imagen::Imagen(int filas, int columnas){
-    nfilas = filas;
-    ncolumnas = columnas;
-    for(int i=0; i<nfilas*ncolumnas; i++){
-      datos[i] = 0;
+
+    if (nfilas >= 0 && ncolumnas >= 0 && filas*columnas < MAXPIXELS){
+      nfilas = filas;
+      ncolumnas = columnas;
+      for(int i=0; i<nfilas*ncolumnas; i++){
+        datos[i] = 0;
+      }
     }
 }
 
 void Imagen::crear(int filas, int columnas){
-    nfilas = filas;
-    ncolumnas = columnas;
-    for(int i=0; i<nfilas*ncolumnas; i++){
-      datos[i] = 0;
+
+    if (nfilas >= 0 && ncolumnas >= 0 && filas*columnas < MAXPIXELS){
+      nfilas = filas;
+      ncolumnas = columnas;
+      for(int i=0; i<nfilas*ncolumnas; i++){
+        datos[i] = 0;
+      }
     }
 }
 
@@ -34,20 +40,30 @@ int Imagen::columnas() const{
 
 void Imagen::set(int y, int x, Byte v){
     int i = y*ncolumnas+x;
-    datos[i] = v;
+    if (i < MAXPIXELS && i >= 0)
+      datos[i] = v;
 }
 
 Byte Imagen::get(int y, int x) const{
+    Byte byte = 0x0;
     int i = y*ncolumnas+x;
-    return datos[i];
+    if (i < MAXPIXELS && i >= 0)
+      byte = datos[i];
+
+    return byte;
 }
 
 void Imagen::setPos(int i, Byte v){
-    datos[i] = v;
+    if (i < MAXPIXELS && i >= 0)
+      datos[i] = v;
 }
 
 Byte Imagen::getPos(int i) const{
-    return datos[i];
+    Byte byte = 0x0;
+    if (i < MAXPIXELS && i >= 0)
+      byte = datos[i];
+
+    return byte;
 }
 
 bool Imagen::leerImagen(const char nombreFichero[]){
@@ -74,30 +90,35 @@ bool Imagen::escribirImagen(const char nombreFichero[], bool esBinario) const{
 Imagen Imagen::plano (int k) const{
   Imagen nueva(nfilas, ncolumnas);
 
-  for (int i = 0; i < ncolumnas; i++){
-    for(int j = 0; j < nfilas; j++){
-      //Cojo cada byte de la imagen
-      Byte byte = this->get(j,i);
-      //Creo un byte con todo 0s
-      Byte nuevo = 0x0;
-      //Miro si la posición k del byte de la imagen está encendida
-      bool estado = getBit(byte,k);
-      //Coloco el bit más significativo a 1 si está encencido
-      if (estado)
-        onBit(nuevo,7);
-      //Asigno el nuevo byte a la posición i,j de la imágen
-      nueva.set(j,i, nuevo);
+  if (k < 7 && k >= 0){
+
+
+    for (int i = 0; i < ncolumnas; i++){
+      for(int j = 0; j < nfilas; j++){
+        //Cojo cada byte de la imagen
+        Byte byte = this->get(j,i);
+        //Creo un byte con todo 0s
+        Byte nuevo = 0x0;
+        //Miro si la posición k del byte de la imagen está encendida
+        bool estado = getBit(byte,k);
+        //Coloco el bit más significativo a 1 si está encencido
+        if (estado)
+          onByte(nuevo);
+        //Asigno el nuevo byte a la posición i,j de la imágen
+        nueva.set(j,i, nuevo);
+      }
     }
   }
   //Devuelvo la imagen
   return nueva;
+
 }
 
 
 bool Imagen::aArteASCII(const char grises[], char arteASCII[], int maxlong) const{
   bool tamanio_correcto = false;
 
-  if (nfilas*ncolumnas + nfilas <= maxlong){
+  if (maxlong < MAXPIXELS  && nfilas*(ncolumnas+1) <= maxlong){
     tamanio_correcto = true;
 
     for (int i = 0; i < nfilas; i++){
@@ -108,7 +129,7 @@ bool Imagen::aArteASCII(const char grises[], char arteASCII[], int maxlong) cons
         char simbolo = grises[byte*strlen(grises)/256];
         arteASCII[i*ncolumnas + j] = simbolo;
       }
-      //añado el salto carro al final de cada línea
+      //añado el salto de carro al final de cada línea
       arteASCII[i*ncolumnas] = '\n';
     }
 
