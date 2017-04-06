@@ -120,17 +120,20 @@ bool Imagen::aArteASCII(const char grises[], char arteASCII[], int maxlong) cons
 
   if (filas()*(columnas()+1) < maxlong){
     tamanio_correcto = true;
+    int introducidos = 0;
 
     for (int i = 0; i < filas(); i++){
-      for(int j = 0; j < columnas(); j++){
+      for(int j = 0; j < columnas() && introducidos < maxlong; j++){
         //Cojo cada byte de la imagen
         Byte byte = this->get(i,j);
         //Compruebo que símbolo le corresponde
         char simbolo = grises[byte*strlen(grises)/256];
         arteASCII[i*columnas() + j] = simbolo;
+        introducidos += 1;
       }
       //añado el salto de carro al final de cada línea
       arteASCII[i*columnas()] = '\n';
+      introducidos += 1;
     }
 
     //Agrego al final de la cadena el salto de línea y el caracter
