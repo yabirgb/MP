@@ -122,7 +122,7 @@ bool Imagen::aArteASCII(const char grises[], char arteASCII[], int maxlong) cons
     tamanio_correcto = true;
     int introducidos = 0;
 
-    for (int i = 0; i < filas(); i++){
+    for (int i = 0; i < filas() && introducidos < maxlong; i++){
       for(int j = 0; j < columnas() && introducidos < maxlong; j++){
         //Cojo cada byte de la imagen
         Byte byte = this->get(i,j);
