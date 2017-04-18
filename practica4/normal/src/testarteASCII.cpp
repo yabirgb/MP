@@ -48,15 +48,9 @@ int main(){
 						cout << "arteASCII con la escala de grises número " << i << endl;
 						ofstream fsalida;
 						fsalida.open(salida, ios::app);
-						if(fsalida){
-							fsalida << "arteASCII con la escala de grises número " << lineas_grises << endl;
-							fsalida << arteASCII << endl;
-							if (!fsalida) cerr << "Error en la escritura del fichero" << endl;
-							fsalida.close();
-						}
-						else{
-							cerr << "Error en la APERTURA del fichero" << endl;
-						}
+						fsalida << "arteASCII con la escala de grises número " << lineas_grises << endl;
+						fsalida << arteASCII << endl;
+						fsalida.close();
 				}
 				else
 						cerr << "La conversión no ha sido posible" << endl;

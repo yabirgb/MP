@@ -10,7 +10,7 @@ Imagen::Imagen(){
 
 Imagen::Imagen(int filas, int columnas){
 
-    crear(filas, columnas);
+  crear(filas,columnas);
 }
 
 void Imagen::crear(int filas, int columnas){
@@ -69,9 +69,9 @@ bool Imagen::leerImagen(const char nombreFichero[]){
         exito = leerPGMBinario(nombreFichero, datos, nfilas, ncolumnas);
       }
     }
-    else if(infoPGM(nombreFichero, nfilas, ncolumnas) == IMG_PGM_TEXTO){
+    else if (infoPGM(nombreFichero, nfilas, ncolumnas) == IMG_PGM_TEXTO){
       if(nfilas*ncolumnas < MAXPIXELS){
-        exito = leerPGMTexto(nombreFichero, datos, nfilas, ncolumnas);
+	exito =  leerPGMTexto1(nombreFichero, datos, nfilas, ncolumnas);
       }
     }
     return exito;

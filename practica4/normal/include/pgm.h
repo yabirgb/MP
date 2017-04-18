@@ -5,10 +5,10 @@
 
 **/
 
-
+  
 #ifndef _PGM_H_
 #define _PGM_H_
-
+  
 /**
   * @brief Tipo de imagen
   *
@@ -30,7 +30,7 @@ enum TipoImagen {
   * @param nombre indica el nombre del archivo de disco a consultar
   * @param filas Parámetro de salida con las filas de la imagen.
   * @param columnas Parámetro de salida con las columnas de la imagen.
-  * @return Devuelve el tipo de la imagen en el archivo
+  * @return Devuelve el tipo de la imagen en el archivo 
   *
   * @see TipoImagen
   */
@@ -44,7 +44,7 @@ TipoImagen infoPGM(const char nombre[], int& filas, int& columnas);
   * @param filas 	Parámetro de salida con las filas de la imagen.
   * @param columnas Parámetro de salida con las columnas de la imagen.
   * @param datos 	vector para obtener el valor de cada uno de los píxeles
-  *        desde la esquina superior izqda a la inferior dcha.
+  *        desde la esquina superior izqda a la inferior dcha. 
   * @retval true 	si ha tenido éxito en la lectura.
   * @retval false 	si se ha producido algún error en la lectura.
   * @pre datos 		debe tener tamaño suficiente para almacenar
@@ -65,7 +65,8 @@ bool leerPGMBinario (const char nombre[], unsigned char datos[], int& filas, int
   */
 bool escribirPGMBinario (const char nombre[], const unsigned char datos[], int filas, int columnas);
 
-bool leerPGMTexto (const char nombre[], unsigned char datos[], int& filas, int& columnas);
+bool leerPGMTexto1 (const char nombre[], unsigned char datos[], int& filas, int& columnas);
+bool leerPGMTexto2 (const char nombre[], unsigned char datos[], int& filas, int& columnas);
 bool escribirPGMTexto (const char nombre[], const unsigned char datos[], int filas, int columnas);
-
 #endif
+
