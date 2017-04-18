@@ -122,11 +122,15 @@ bool leerPGMTexto (const char nombre[], unsigned char datos[], int& filas, int& 
   bool exito= false;
   filas=0;
   columnas=0;
+  int aux;
 
 	if (LeerTipo(f)==IMG_PGM_TEXTO)
-	 if (LeerCabecera (f, filas, columnas))
-		if (f.read(reinterpret_cast<char *>(datos),filas*columnas))
-	  		exito= true;
+	 if (LeerCabecera (f, filas, columnas)){
+     for (int i = 0; filas*columnas; i++){
+       f >> aux;
+       datos[i] = (unsigned char) aux;
+     }
+   }
 
  	return exito;
 }
@@ -135,14 +139,17 @@ bool leerPGMTexto (const char nombre[], unsigned char datos[], int& filas, int& 
 
 bool escribirPGMTexto (const char nombre[], const unsigned char datos[], int filas, int columnas)
 {
-  ofstream f(nombre);
+  ofstream f(nombre); //ofstream f; f.open(nombre);
   bool exito= false;
-
+  int aux;
   if (f) {
     f << "P2" << endl;
     f << columnas << ' ' << filas << endl;
     f << 255 << endl;
-    f.write(reinterpret_cast<const char *>(datos),filas*columnas);
+    for (int i = 0; filas*columnas; i++){
+      aux = datos[i];
+      f << aux << " ";
+    }
     if (!f)
     	exito=false;
     else

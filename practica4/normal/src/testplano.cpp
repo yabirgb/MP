@@ -13,7 +13,7 @@ using namespace std;
 
 int main(){
     Imagen origen, plano;
-    char imagen1[]="data/gio.pgm", imagen2[] = "data/plano6.pgm", imagen3[] = "data/plano0.pgm";
+    char imagen1[]="data/gio_TXT.pgm", imagen2[] = "data/plano6.pgm", imagen3[] = "data/plano0.pgm";
 
 	// Leer la imagen giotexto.pgm
 	if (!origen.leerImagen(imagen1)){

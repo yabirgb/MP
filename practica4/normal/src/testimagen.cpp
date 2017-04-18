@@ -19,7 +19,7 @@ int main(){
 		   destino.setPos(i, i%destino.columnas()+20);
 
 	// Guardar la imagen destino en el fichero degradado.pgm
-	if (destino.escribirImagen(imagen1, true)){
+	if (destino.escribirImagen(imagen1, false)){
 		// si todo va bien
 		cout << imagen1 << " guardado correctamente \n";
 		cout << "usa: display " << imagen1 << " para ver el resultado\n";

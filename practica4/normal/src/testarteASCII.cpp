@@ -51,7 +51,7 @@ int main(){
 						if(fsalida){
 							fsalida << "arteASCII con la escala de grises número " << lineas_grises << endl;
 							fsalida << arteASCII << endl;
-							if (!f) cerr << "Error en la escritura del fichero" << endl;
+							if (!fsalida) cerr << "Error en la escritura del fichero" << endl;
 							fsalida.close();
 						}
 						else{
