@@ -140,8 +140,8 @@ bool leerPGMTexto2 (const char nombre[],unsigned char datos[], int& filas, int& 
   if(LeerTipo(f) == IMG_PGM_TEXTO){
     if(LeerCabecera (f, filas, columnas)){
       for(int i=0;i<filas*columnas;i++){
-	f >> aux;
-	datos[i] = (unsigned char) aux;
+		f >> aux;
+		datos[i] = (unsigned char) aux;
       }
       exito = true;
     }

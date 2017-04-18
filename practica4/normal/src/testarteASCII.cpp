@@ -12,10 +12,8 @@
 using namespace std;
 
 int main(){
-	 const int MAX=4500;
-    char grises[] = "@#%xo;:,. ";
+	const int MAX=4500;
     char arteASCII[MAX+1]; // 4500 + el \0
-    char imagen1[]="data/gio.pgm";
     Imagen origen;
 
 		//Lectura
@@ -40,7 +38,7 @@ int main(){
 				fentrada >> gris;
 
 				if (!origen.leerImagen(fichero)){
-			   cerr << "error leyendo "<< imagen1 << endl;
+			   cerr << "error leyendo "<< fichero << endl;
 			   return 1;
 		    }
 				//Falta manehar errores de la escritura.
@@ -48,7 +46,7 @@ int main(){
 						cout << "arteASCII con la escala de grises número " << i << endl;
 						ofstream fsalida;
 						fsalida.open(salida, ios::app);
-						fsalida << "arteASCII con la escala de grises número " << lineas_grises << endl;
+						fsalida << "La imagen en arte ASCII (" << i << ") es:" << endl;
 						fsalida << arteASCII << endl;
 						fsalida.close();
 				}
