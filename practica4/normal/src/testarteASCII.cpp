@@ -21,14 +21,15 @@ int main(){
   char fichero[MAX_NOMBRE], gris[MAX_NOMBRE], salida[MAX_NOMBRE];
   int lineas_grises;
 
-  cout << "Introduzca nombre de la imagen: ";
+  cout << "Introduzca nombre de la imagen para leer: ";
+  //Leemos comprobando
   cin.getline(fichero, MAX_NOMBRE);
   if (!origen.leerImagen(fichero)){
     cerr << "error leyendo "<< fichero << endl;
     return 1;
   }
   else{
-
+    //Si existe el archivo seguimos
     cout << "Imagen " << fichero << " leida correctamente" << endl;
     cout << "Introduzca el fichero de grises: ";
     cin.getline(gris, MAX_NOMBRE);
@@ -37,26 +38,30 @@ int main(){
 
     ifstream fentrada;
     fentrada.open(gris);
+    //Comprobamos que se abra bien
     if (fentrada){
       fentrada >> lineas_grises;
+      //Para cada linea de grises hacemos un arteAscii
       for (int i = 0; i < lineas_grises; i++){
-	fentrada >> gris;
-      
-	if(origen.aArteASCII(gris, arteASCII, MAX)){
-	  ofstream fsalida;
-	  fsalida.open(salida, ios::app);
-	  if(fsalida){
-	    fsalida << "La imagen en arte ASCII (" << i << ") es:" << endl;
-	    fsalida << arteASCII << endl;
-	  }
-	  else{
-	    cerr << "Fallo con el fichero de salida" << endl;
-	  }
-	  fsalida.close();
-	}
-	else{
-	  cerr << "La conversión no ha sido posible" << endl;
-	}
+      	fentrada >> gris;
+
+      	if(origen.aArteASCII(gris, arteASCII, MAX)){
+          //Abrimos un stream para escribir a final del archivo
+      	  ofstream fsalida;
+      	  fsalida.open(salida, ios::app);
+          //Si se ha creado correctamente
+      	  if(fsalida){
+      	    fsalida << "La imagen en arte ASCII (" << i << ") es:" << endl;
+      	    fsalida << arteASCII << endl;
+      	  }
+      	  else{
+      	    cerr << "Fallo con el fichero de salida" << endl;
+      	  }
+      	  fsalida.close();
+      	}
+      	else{
+      	  cerr << "La conversión no ha sido posible" << endl;
+      	}
       }
       fentrada.close();
     }
@@ -65,25 +70,4 @@ int main(){
     }
   }
 
-
-  /*
-
-  // Leer la imagen gio.pgm
-  if (!origen.leerImagen(imagen1)){
-  cerr << "error leyendo "<< imagen1 << endl;
-  return 1;
-  }
-
-  cout << "\nLa imagen en arte ASCII es:\n";
-  if(origen.aArteASCII(grises, arteASCII, MAX))
-  cout << arteASCII;
-  else
-  cout << "La conversión no ha sido posible" << endl;
-
-  cout << "Ahora Forzamos que no quepa. Debe aparecer un mensaje de error\n";
-  if(origen.aArteASCII(grises, arteASCII, MAX/10))
-  cout << arteASCII;
-  else
-  cout << "La conversión no ha sido posible" << endl;
-  */
 }
