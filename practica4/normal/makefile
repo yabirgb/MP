@@ -10,7 +10,7 @@ ZIP=./zip
 # -g compila en modo "depuración"
 OPT=-Wall -g
 # Nombre de la práctica
-PRJ=practica3
+PRJ=practica4
 
 # Las macros se usan en las reglas del makefile como si fuesen variables
 # que se sustituyen por su valor definido anteriormente
