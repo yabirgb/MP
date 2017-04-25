@@ -14,6 +14,7 @@ int main(){
     Imagen destino(150,200);
     char imagen1[]="data/degradado.pgm", imagen2[] = "data/lena.pgm", imagen3[] = "data/trozo.pgm";
 
+
 	// Crear un degradado en la imagen destino
     for (int i=0; i < destino.filas()*destino.columnas(); i++)
 		   destino.setPos(i, i%destino.columnas()+20);
@@ -25,12 +26,16 @@ int main(){
   		cout << "usa: display " << imagen1 << " para ver el resultado\n";
   	} else { // si error
   		cerr << "Error guardando la imagen" <<  imagen1 << endl;
+		origen.destruir();
+		destino.destruir();
   		return 1;
   	}
 
   	// Leer la imagen lena.pgm
   	if (!origen.leerImagen(imagen2)){
   		cerr << "Error leyendo " << imagen2 << endl;
+		origen.destruir();
+		destino.destruir();
   		return 1;
   	}
 
@@ -47,8 +52,13 @@ int main(){
   		cout << "usa: display " << imagen3 << " para ver el resultado\n";
   	} else { // si error
   		cerr << "Error guardando la imagen " << imagen3 << endl;
+		origen.destruir();
+		destino.destruir();
   		return 1;
   	}
+	
+	origen.destruir();
+	destino.destruir();
 
   	return 0;
 }

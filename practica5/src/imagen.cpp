@@ -4,24 +4,37 @@
 #include <cstring>
 
 Imagen::Imagen(){
+	datos = NULL;
     nfilas = 0;
     ncolumnas = 0;
 }
 
-Imagen::Imagen(int filas, int columnas){
-
+Imagen::Imagen(int filas, int columnas):Imagen(){
   crear(filas,columnas);
 }
 
 void Imagen::crear(int filas, int columnas){
 
-    if (filas >= 0 && columnas >= 0 && filas*columnas < MAXPIXELS){
+	if(datos != NULL)
+		delete [] datos;
+
+    if (filas*columnas >= 0){
+      datos = new Byte [filas*columnas];
       nfilas = filas;
       ncolumnas = columnas;
       for(int i=0; i<nfilas*ncolumnas; i++){
         datos[i] = 0;
       }
     }
+}
+
+void Imagen::destruir(){
+    if(datos != NULL)
+        delete [] datos;
+
+    nfilas = 0;
+    ncolumnas = 0;
+    datos = NULL;
 }
 
 int Imagen::filas() const{
@@ -34,27 +47,27 @@ int Imagen::columnas() const{
 
 void Imagen::set(int y, int x, Byte v){
     int i = y*ncolumnas+x;
-    if (i < MAXPIXELS && i >= 0)
+    if (i < nfilas*ncolumnas && i >= 0)
       datos[i] = v;
 }
 
 Byte Imagen::get(int y, int x) const{
     Byte byte = 0x0;
     int i = y*ncolumnas+x;
-    if (i < MAXPIXELS && i >= 0)
+    if (i < nfilas*ncolumnas && i >= 0)
       byte = datos[i];
 
     return byte;
 }
 
 void Imagen::setPos(int i, Byte v){
-    if (i < MAXPIXELS && i >= 0)
+    if (i < nfilas*ncolumnas && i >= 0)
       datos[i] = v;
 }
 
 Byte Imagen::getPos(int i) const{
     Byte byte = 0x0;
-    if (i < MAXPIXELS && i >= 0)
+    if (i < nfilas*ncolumnas && i >= 0)
       byte = datos[i];
 
     return byte;
@@ -65,14 +78,19 @@ bool Imagen::leerImagen(const char nombreFichero[]){
     // Comprobamos que sea PGM BINARIO
     if(infoPGM(nombreFichero, nfilas, ncolumnas) == IMG_PGM_BINARIO){
       // Comprobamos que no supere el tamaño máximo
-      if(nfilas*ncolumnas < MAXPIXELS){
-        exito = leerPGMBinario(nombreFichero, datos, nfilas, ncolumnas);
-      }
+	  crear(nfilas, ncolumnas);
+      exito = leerPGMBinario(nombreFichero, datos, nfilas, ncolumnas);
+
+	  if(!exito)
+		destruir();
     }
     else if (infoPGM(nombreFichero, nfilas, ncolumnas) == IMG_PGM_TEXTO){
-      if(nfilas*ncolumnas < MAXPIXELS){
-	exito =  leerPGMTexto1(nombreFichero, datos, nfilas, ncolumnas);
-      }
+      crear(nfilas, ncolumnas);
+			exito =  leerPGMTexto1(nombreFichero, datos, nfilas, ncolumnas);
+		
+			if(!exito)
+				destruir();
+		
     }
     return exito;
 }

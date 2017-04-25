@@ -18,6 +18,8 @@ int main(){
 	// Leer la imagen giotexto.pgm
 	if (!origen.leerImagen(imagen1)){
 		cerr << "error leyendo " << imagen1 << endl;
+        origen.destruir();
+	    plano.destruir();
 		return 1;
 	}
 
@@ -30,7 +32,10 @@ int main(){
 		cout << "usa: display " << imagen2 << " para ver el resultado\n";
 	} else { // si error
 		cerr << "Error guardando la imagen " << imagen2;
+        origen.destruir();
+	    plano.destruir();
 		return 1;
+    
 	}
 
 	plano = origen.plano(0);
@@ -42,8 +47,13 @@ int main(){
 		cout << "usa: display " << imagen3 << " para ver el resultado\n";
 	} else { // si error
 		cerr << "Error guardando la imagen " << imagen3;
+        origen.destruir();
+	    plano.destruir();
 		return 1;
 	}
+       
+    origen.destruir();
+	plano.destruir();
 
 	return 0;
 }

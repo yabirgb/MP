@@ -14,8 +14,7 @@
 @brief Una imagen en blanco y negro. Cada píxel es un Byte
 */
 class Imagen{
-private:
-   static const int MAXPIXELS = 1000000;  ///< número máximo de píxeles que podemos almacenar 
+private:  
    Byte * datos;///< datos de la imagen
    int nfilas; 			///< número de filas de la imagen
    int ncolumnas;		///< número de columnsa de la imagen
@@ -133,6 +132,9 @@ Lee desde disco los datos de la imagen llamada @a nombreFichero y la guarda en l
    Imagen plano (int k) const;
    
    bool aArteASCII(const char grises[], char arteASCII[], int maxlong) const;
+
+   void destruir();
+
 ///////////////////////////////////////////////////////////////////////////////////
 };
 

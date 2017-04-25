@@ -70,4 +70,6 @@ int main(){
     }
   }
 
+  origen.destruir();
+
 }
