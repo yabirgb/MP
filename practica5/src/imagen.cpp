@@ -4,7 +4,7 @@
 #include <cstring>
 
 Imagen::Imagen(){
-	datos = NULL;
+		datos = NULL;
     nfilas = 0;
     ncolumnas = 0;
 }
@@ -14,27 +14,24 @@ Imagen::Imagen(int filas, int columnas):Imagen(){
 }
 
 void Imagen::crear(int filas, int columnas){
-
-	if(datos != NULL)
-		delete [] datos;
-
-    if (filas*columnas >= 0){
-      datos = new Byte [filas*columnas];
-      nfilas = filas;
-      ncolumnas = columnas;
-      for(int i=0; i<nfilas*ncolumnas; i++){
-        datos[i] = 0;
-      }
+	destruir();
+  if (filas*columnas >= 0){
+    datos = new Byte [filas*columnas];
+    nfilas = filas;
+    ncolumnas = columnas;
+    for(int i=0; i<nfilas*ncolumnas; i++){
+      datos[i] = 0;
     }
+  }
 }
 
 void Imagen::destruir(){
-    if(datos != NULL)
+    if(datos != NULL){
         delete [] datos;
-
-    nfilas = 0;
-    ncolumnas = 0;
-    datos = NULL;
+	    	datos = NULL;
+		}
+		nfilas = 0;
+		ncolumnas = 0;
 }
 
 int Imagen::filas() const{
@@ -87,10 +84,10 @@ bool Imagen::leerImagen(const char nombreFichero[]){
     else if (infoPGM(nombreFichero, nfilas, ncolumnas) == IMG_PGM_TEXTO){
       crear(nfilas, ncolumnas);
 			exito =  leerPGMTexto1(nombreFichero, datos, nfilas, ncolumnas);
-		
+
 			if(!exito)
 				destruir();
-		
+
     }
     return exito;
 }
@@ -107,8 +104,8 @@ bool Imagen::escribirImagen(const char nombreFichero[], bool esBinario) const{
 }
 
 
-Imagen Imagen::plano (int k) const{
-  Imagen nueva(filas(), columnas());
+Imagen * Imagen::plano (int k) const{
+  Imagen * nueva = new Imagen(filas(), columnas());
 
   if (k < 7 && k >= 0){
 
@@ -125,7 +122,7 @@ Imagen Imagen::plano (int k) const{
         if (estado)
           onByte(nuevo);
         //Asigno el nuevo byte a la posición i,j de la imágen
-        nueva.set(j,i, nuevo);
+        nueva->set(j,i, nuevo);
       }
     }
   }

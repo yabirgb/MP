@@ -12,48 +12,48 @@
 using namespace std;
 
 int main(){
-    Imagen origen, plano;
-    char imagen1[]="data/giotexto.pgm", imagen2[] = "data/plano6.pgm", imagen3[] = "data/plano0.pgm";
+  Imagen origen, *plano;
+  char imagen1[]="data/giotexto.pgm", imagen2[] = "data/plano6.pgm", imagen3[] = "data/plano0.pgm";
 
 	// Leer la imagen giotexto.pgm
 	if (!origen.leerImagen(imagen1)){
 		cerr << "error leyendo " << imagen1 << endl;
-        origen.destruir();
-	    plano.destruir();
+      origen.destruir();
 		return 1;
 	}
 
  	plano = origen.plano(6);
 
 	// Guardar la imagen plano en el fichero plano6.pgm
-	if (plano.escribirImagen(imagen2, false)){
+	if (plano->escribirImagen(imagen2, false)){
 		// si todo va bien
 		cout << imagen2 << " guardado correctamente \n";
 		cout << "usa: display " << imagen2 << " para ver el resultado\n";
 	} else { // si error
-		cerr << "Error guardando la imagen " << imagen2;
-        origen.destruir();
-	    plano.destruir();
+		  cerr << "Error guardando la imagen " << imagen2;
+      plano->destruir();
+      origen.destruir();
 		return 1;
-    
+
 	}
+  plano->destruir();
 
 	plano = origen.plano(0);
 
 	// Guardar la imagen plano en el fichero plano0.pgm
-	if (plano.escribirImagen(imagen3, false)){
+	if (plano->escribirImagen(imagen3, false)){
 		// si todo va bien
 		cout << imagen3 << " guardado correctamente \n";
 		cout << "usa: display " << imagen3 << " para ver el resultado\n";
 	} else { // si error
-		cerr << "Error guardando la imagen " << imagen3;
-        origen.destruir();
-	    plano.destruir();
+		  cerr << "Error guardando la imagen " << imagen3;
+      plano->destruir();
+      origen.destruir();
 		return 1;
 	}
-       
-    origen.destruir();
-	plano.destruir();
+
+  origen.destruir();
+	plano->destruir();
 
 	return 0;
 }
