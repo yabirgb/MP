@@ -4,6 +4,7 @@
 #include <cstring>
 
 Imagen::Imagen(){
+		//inicializar todo a 0.
 		datos = NULL;
     nfilas = 0;
     ncolumnas = 0;
@@ -14,8 +15,10 @@ Imagen::Imagen(int filas, int columnas):Imagen(){
 }
 
 void Imagen::crear(int filas, int columnas){
+	//Primero nos aseguramos de que no hay nada en los datos
 	destruir();
-  if (filas*columnas >= 0){
+	//Comprobamos que el tamaño sea válidos
+  if (filas*columnas >= 1){
     datos = new Byte [filas*columnas];
     nfilas = filas;
     ncolumnas = columnas;
@@ -26,6 +29,7 @@ void Imagen::crear(int filas, int columnas){
 }
 
 void Imagen::destruir(){
+		//Si hay algo en datos
     if(datos != NULL){
         delete [] datos;
 	    	datos = NULL;
@@ -105,11 +109,11 @@ bool Imagen::escribirImagen(const char nombreFichero[], bool esBinario) const{
 
 
 Imagen * Imagen::plano (int k) const{
-  Imagen * nueva = new Imagen(filas(), columnas());
+	//Usamos un puntero ya que cuando usamos el constructor copia,
+	//no podemos dejar huérfano el objeto sin borrarlo.
+  Imagen* nueva = new Imagen(filas(), columnas());
 
   if (k < 7 && k >= 0){
-
-
     for (int i = 0; i < columnas(); i++){
       for(int j = 0; j < filas(); j++){
         //Cojo cada byte de la imagen
@@ -126,7 +130,7 @@ Imagen * Imagen::plano (int k) const{
       }
     }
   }
-  //Devuelvo la imagen
+  //Devuelvo un puntero a la imágen.
   return nueva;
 
 }
