@@ -4,10 +4,10 @@
 #include <cstring>
 
 Imagen::Imagen(){
-		//inicializar todo a 0.
-		datos = NULL;
-    nfilas = 0;
-    ncolumnas = 0;
+  //inicializar todo a 0.
+  datos = NULL;
+  nfilas = 0;
+  ncolumnas = 0;
 }
 
 Imagen::Imagen(int filas, int columnas):Imagen(){
@@ -15,9 +15,9 @@ Imagen::Imagen(int filas, int columnas):Imagen(){
 }
 
 void Imagen::crear(int filas, int columnas){
-	//Primero nos aseguramos de que no hay nada en los datos
-	destruir();
-	//Comprobamos que el tamaño sea válidos
+  //Primero nos aseguramos de que no hay nada en los datos
+  destruir();
+  //Comprobamos que el tamaño sea válidos
   if (filas*columnas >= 1){
     datos = new Byte [filas*columnas];
     nfilas = filas;
@@ -29,88 +29,88 @@ void Imagen::crear(int filas, int columnas){
 }
 
 void Imagen::destruir(){
-		//Si hay algo en datos
-    if(datos != NULL){
-        delete [] datos;
-	    	datos = NULL;
-		}
-		nfilas = 0;
-		ncolumnas = 0;
+  //Si hay algo en datos
+  if(datos != NULL){
+    delete [] datos;
+    datos = NULL;
+  }
+  nfilas = 0;
+  ncolumnas = 0;
 }
 
 int Imagen::filas() const{
-    return nfilas;
+  return nfilas;
 }
 
 int Imagen::columnas() const{
-    return ncolumnas;
+  return ncolumnas;
 }
 
 void Imagen::set(int y, int x, Byte v){
-    int i = y*ncolumnas+x;
-    if (i < nfilas*ncolumnas && i >= 0)
-      datos[i] = v;
+  int i = y*ncolumnas+x;
+  if (i < nfilas*ncolumnas && i >= 0)
+    datos[i] = v;
 }
 
 Byte Imagen::get(int y, int x) const{
-    Byte byte = 0x0;
-    int i = y*ncolumnas+x;
-    if (i < nfilas*ncolumnas && i >= 0)
-      byte = datos[i];
+  Byte byte = 0x0;
+  int i = y*ncolumnas+x;
+  if (i < nfilas*ncolumnas && i >= 0)
+    byte = datos[i];
 
-    return byte;
+  return byte;
 }
 
 void Imagen::setPos(int i, Byte v){
-    if (i < nfilas*ncolumnas && i >= 0)
-      datos[i] = v;
+  if (i < nfilas*ncolumnas && i >= 0)
+    datos[i] = v;
 }
 
 Byte Imagen::getPos(int i) const{
-    Byte byte = 0x0;
-    if (i < nfilas*ncolumnas && i >= 0)
-      byte = datos[i];
+  Byte byte = 0x0;
+  if (i < nfilas*ncolumnas && i >= 0)
+    byte = datos[i];
 
-    return byte;
+  return byte;
 }
 
 bool Imagen::leerImagen(const char nombreFichero[]){
-    bool exito = false;
-    // Comprobamos que sea PGM BINARIO
-    if(infoPGM(nombreFichero, nfilas, ncolumnas) == IMG_PGM_BINARIO){
-      // Comprobamos que no supere el tamaño máximo
-	  	crear(nfilas, ncolumnas);
-      exito = leerPGMBinario(nombreFichero, datos, nfilas, ncolumnas);
+  bool exito = false;
+  // Comprobamos que sea PGM BINARIO
+  if(infoPGM(nombreFichero, nfilas, ncolumnas) == IMG_PGM_BINARIO){
+    // Comprobamos que no supere el tamaño máximo
+    crear(nfilas, ncolumnas);
+    exito = leerPGMBinario(nombreFichero, datos, nfilas, ncolumnas);
+        
+    if(!exito)
+      destruir();
+  }
+  else if (infoPGM(nombreFichero, nfilas, ncolumnas) == IMG_PGM_TEXTO){
+    crear(nfilas, ncolumnas);
+    exito =  leerPGMTexto1(nombreFichero, datos, nfilas, ncolumnas);
 
-		  if(!exito)
-				destruir();
-    }
-    else if (infoPGM(nombreFichero, nfilas, ncolumnas) == IMG_PGM_TEXTO){
-      crear(nfilas, ncolumnas);
-			exito =  leerPGMTexto1(nombreFichero, datos, nfilas, ncolumnas);
+    if(!exito)
+      destruir();
 
-			if(!exito)
-				destruir();
-
-    }
-    return exito;
+  }
+  return exito;
 }
 
 bool Imagen::escribirImagen(const char nombreFichero[], bool esBinario) const{
-    bool exito = false;
-    if(esBinario){
-      exito = escribirPGMBinario(nombreFichero, datos, nfilas, ncolumnas);
-    }
-    else{
-      exito = escribirPGMTexto(nombreFichero, datos, nfilas, ncolumnas);
-    }
-    return exito;
+  bool exito = false;
+  if(esBinario){
+    exito = escribirPGMBinario(nombreFichero, datos, nfilas, ncolumnas);
+  }
+  else{
+    exito = escribirPGMTexto(nombreFichero, datos, nfilas, ncolumnas);
+  }
+  return exito;
 }
 
 
 Imagen Imagen::plano (int k) const{
-	//Usamos un puntero ya que cuando usamos el constructor copia,
-	//no podemos dejar huérfano el objeto sin borrarlo.
+  //Usamos un puntero ya que cuando usamos el constructor copia,
+  //no podemos dejar huérfano el objeto sin borrarlo.
   Imagen nueva = Imagen(filas(), columnas());
 
   if (k < 7 && k >= 0){
