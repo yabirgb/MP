@@ -79,11 +79,11 @@ bool Imagen::leerImagen(const char nombreFichero[]){
     // Comprobamos que sea PGM BINARIO
     if(infoPGM(nombreFichero, nfilas, ncolumnas) == IMG_PGM_BINARIO){
       // Comprobamos que no supere el tamaño máximo
-	  crear(nfilas, ncolumnas);
+	  	crear(nfilas, ncolumnas);
       exito = leerPGMBinario(nombreFichero, datos, nfilas, ncolumnas);
 
-	  if(!exito)
-		destruir();
+		  if(!exito)
+				destruir();
     }
     else if (infoPGM(nombreFichero, nfilas, ncolumnas) == IMG_PGM_TEXTO){
       crear(nfilas, ncolumnas);
