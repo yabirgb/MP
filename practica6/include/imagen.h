@@ -129,7 +129,7 @@ Lee desde disco los datos de la imagen llamada @a nombreFichero y la guarda en l
    bool escribirImagen(const char nombreFichero[], bool esBinario) const;
 
 ///////////////////////////////////////////////////////////////////////////////////
-   Imagen *  plano (int k) const;
+   Imagen plano (int k) const;
 
    bool aArteASCII(const char grises[], char arteASCII[], int maxlong) const;
 

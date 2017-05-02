@@ -24,47 +24,41 @@ int main(){
 	}
 
   //creamos un puntero que apunte a la imagen del plano
- 	Imagen * plano = origen.plano(6);
+ 	Imagen plano = origen.plano(6);
 
 	// Guardar la imagen plano en el fichero plano6.pgm
-	if (plano->escribirImagen(imagen2, false)){
+	if (plano.escribirImagen(imagen2, false)){
 		// si todo va bien
 		cout << imagen2 << " guardado correctamente \n";
 		cout << "usa: display " << imagen2 << " para ver el resultado\n";
 	} else { // si error
 		  cerr << "Error guardando la imagen " << imagen2;
       //En caso de error borramos todo
-      plano->destruir();
+      plano.destruir();
       origen.destruir();
-      delete plano;
 		return 1;
 
 	}
 
   //Antes de cambiar donde apunta el puntero borramos la memoria dinamica
-  plano->destruir();
-  delete plano;
-
+  plano.destruir();
 	plano = origen.plano(0);
 
 	// Guardar la imagen plano en el fichero plano0.pgm
-	if (plano->escribirImagen(imagen3, false)){
+	if (plano.escribirImagen(imagen3, false)){
 		// si todo va bien
 		cout << imagen3 << " guardado correctamente \n";
 		cout << "usa: display " << imagen3 << " para ver el resultado\n";
 	} else { // si error
 		  cerr << "Error guardando la imagen " << imagen3;
-      plano->destruir();
+      plano.destruir();
       origen.destruir();
-      delete plano;
 		return 1;
 	}
 
   //Si todo ha funcionado bien borramos los punteros antes de terminar
   origen.destruir();
-	plano->destruir();
-
-  delete plano;
+	plano.destruir();
 
 	return 0;
 }
