@@ -108,10 +108,10 @@ bool Imagen::escribirImagen(const char nombreFichero[], bool esBinario) const{
 }
 
 
-Imagen * Imagen::plano (int k) const{
+Imagen Imagen::plano (int k) const{
 	//Usamos un puntero ya que cuando usamos el constructor copia,
 	//no podemos dejar huérfano el objeto sin borrarlo.
-  Imagen* nueva = new Imagen(filas(), columnas());
+  Imagen nueva = Imagen(filas(), columnas());
 
   if (k < 7 && k >= 0){
     for (int i = 0; i < columnas(); i++){
@@ -126,7 +126,7 @@ Imagen * Imagen::plano (int k) const{
         if (estado)
           onByte(nuevo);
         //Asigno el nuevo byte a la posición i,j de la imágen
-        nueva->set(j,i, nuevo);
+        nueva.set(j,i, nuevo);
       }
     }
   }
