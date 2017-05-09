@@ -15,7 +15,7 @@
 */
 class Imagen{
 private:
-   Byte * datos;///< datos de la imagen
+   Byte ** datos;///< datos de la imagen
    int nfilas; 			///< número de filas de la imagen
    int ncolumnas;		///< número de columnsa de la imagen
 public:
@@ -129,11 +129,17 @@ Lee desde disco los datos de la imagen llamada @a nombreFichero y la guarda en l
    bool escribirImagen(const char nombreFichero[], bool esBinario) const;
 
 ///////////////////////////////////////////////////////////////////////////////////
-   Imagen plano (int k) const;
+	Imagen plano (int k) const;
 
-   bool aArteASCII(const char grises[], char arteASCII[], int maxlong) const;
+	bool aArteASCII(const char grises[], char arteASCII[], int maxlong) const;
 
-   void destruir();
+	~Imagen();
+	
+	void destruir();
+	
+	void operator= (const Imagen &im);
+	
+	Imagen(const Imagen &im);
 
 ///////////////////////////////////////////////////////////////////////////////////
 };

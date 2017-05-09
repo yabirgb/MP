@@ -13,28 +13,42 @@ Imagen::Imagen(){
 Imagen::Imagen(int filas, int columnas):Imagen(){
   crear(filas,columnas);
 }
-
-// Constructor copia
+/*
+=====================
+	Copia
+=====================
+*/
 Imagen::Imagen(const Imagen &im){
 	nfilas = im.filas();
 	ncolumnas = im.columnas();
+	datos = new Byte * [nfilas];
+	datos[0] = new Byte [nfilas*ncolumnas];
+	for(int i=0; i < nfilas*ncolumnas; i++){
+		setPos(i,im.getPos(i));
+	}
 }
 
 void Imagen::crear(int filas, int columnas){
-  //Primero nos aseguramos de que no hay nada en los datos
   destruir();
   //Comprobamos que el tamaño sea válidos
   if (filas*columnas >= 1){
 	nfilas = filas;
     ncolumnas = columnas;
-    datos = new Byte*[filas];
-	datos[0] = new Byte[filas*columnas];
+    datos = new Byte * [nfilas];
+	datos[0] = new Byte [nfilas*ncolumnas];
     for(int i=1; i<nfilas; ++i){
       datos[i] = datos[i-1]+ncolumnas;
     }
   }
 }
-
+/*
+=====================
+	Destructor
+=====================
+*/
+Imagen::~Imagen(){
+  destruir();
+}
 void Imagen::destruir(){
   //Si hay algo en datos
   if(datos != NULL){
@@ -44,6 +58,21 @@ void Imagen::destruir(){
   }
   nfilas = 0;
   ncolumnas = 0;
+}
+/*
+=====================
+	Asignación
+=====================
+*/
+void Imagen::operator= (const Imagen &im){
+	this->destruir();
+	this->nfilas = im.filas();
+	this->ncolumnas = im.columnas();
+	this->datos = new Byte * [nfilas];
+	this->datos[0] = new Byte [nfilas*ncolumnas];
+	for(int i=0; i < nfilas*ncolumnas; i++){
+		this->setPos(i,im.getPos(i));
+	}
 }
 
 int Imagen::filas() const{
@@ -56,14 +85,14 @@ int Imagen::columnas() const{
 
 void Imagen::set(int y, int x, Byte v){
 	if(y*x >= 0){
-		datos[x][y] = v;
+		datos[y][x] = v;
 	}
 }
 
 Byte Imagen::get(int y, int x) const{
   Byte byte = 0x0;
   if(y*x >= 0){
-  	byte = datos[x][y];
+  	byte = datos[y][x];
   }
   return byte;
 }
@@ -93,18 +122,11 @@ bool Imagen::leerImagen(const char nombreFichero[]){
   if(infoPGM(nombreFichero, nfilas, ncolumnas) == IMG_PGM_BINARIO){
     // Comprobamos que no supere el tamaño máximo
     crear(nfilas, ncolumnas);
-    exito = leerPGMBinario(nombreFichero, datos, nfilas, ncolumnas);
-        
-    if(!exito)
-      destruir();
+    exito = leerPGMBinario(nombreFichero, datos[0], nfilas, ncolumnas);
   }
   else if (infoPGM(nombreFichero, nfilas, ncolumnas) == IMG_PGM_TEXTO){
     crear(nfilas, ncolumnas);
-    exito =  leerPGMTexto1(nombreFichero, datos, nfilas, ncolumnas);
-
-    if(!exito)
-      destruir();
-
+    exito =  leerPGMTexto1(nombreFichero, datos[0], nfilas, ncolumnas);
   }
   return exito;
 }
@@ -112,10 +134,10 @@ bool Imagen::leerImagen(const char nombreFichero[]){
 bool Imagen::escribirImagen(const char nombreFichero[], bool esBinario) const{
   bool exito = false;
   if(esBinario){
-    exito = escribirPGMBinario(nombreFichero, datos, nfilas, ncolumnas);
+    exito = escribirPGMBinario(nombreFichero, datos[0], nfilas, ncolumnas);
   }
   else{
-    exito = escribirPGMTexto(nombreFichero, datos, nfilas, ncolumnas);
+    exito = escribirPGMTexto(nombreFichero, datos[0], nfilas, ncolumnas);
   }
   return exito;
 }
@@ -124,7 +146,7 @@ bool Imagen::escribirImagen(const char nombreFichero[], bool esBinario) const{
 Imagen Imagen::plano (int k) const{
   //Usamos un puntero ya que cuando usamos el constructor copia,
   //no podemos dejar huérfano el objeto sin borrarlo.
-  Imagen nueva = Imagen(filas(), columnas());
+  Imagen nueva(filas(),columnas());
 
   if (k < 7 && k >= 0){
     for (int i = 0; i < columnas(); i++){
