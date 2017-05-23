@@ -65,13 +65,16 @@ void Imagen::destruir(){
 =====================
 */
 void Imagen::operator= (const Imagen &im){
-	this->destruir();
-	this->nfilas = im.filas();
-	this->ncolumnas = im.columnas();
-	this->datos = new Byte * [nfilas];
-	this->datos[0] = new Byte [nfilas*ncolumnas];
+	destruir();
+	nfilas = im.filas();
+	ncolumnas = im.columnas();
+	datos = new Byte * [nfilas];
+	datos[0] = new Byte [nfilas*ncolumnas];
+	for(int i=1; i < nfilas; i++){
+		datos[i] = datos[i-1] + ncolumnas;
+	}
 	for(int i=0; i < nfilas*ncolumnas; i++){
-		this->setPos(i,im.getPos(i));
+		setPos(i,im.getPos(i));
 	}
 }
 
