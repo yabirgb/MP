@@ -14,7 +14,7 @@ PRJ=practica6
 
 # Las macros se usan en las reglas del makefile como si fuesen variables
 # que se sustituyen por su valor definido anteriormente
-all: $(BIN)/testarteASCII $(BIN)/testplano $(BIN)/testimagen
+all: $(BIN)/testarteASCII $(BIN)/testplano $(BIN)/testimagen $(BIN)/testMorphing
 
 #==============
 #   BINARIOS
@@ -67,6 +67,9 @@ $(OBJ)/lista.o: $(SRC)/lista.cpp $(INC)/lista.h
 
 $(OBJ)/celda.o: $(SRC)/celda.cpp $(INC)/lista.h
 	g++ $(OPT) -c $(SRC)/celda.cpp -I$(INC) -o $@
+
+$(OBJ)/testMorphing.o: $(SRC)/testMorphing.cpp $(INC)/lista.h
+	g++ $(OPT) -c $(SRC)/testMorphing.cpp -I$(INC) -o $@
 
 #==============
 #    OTROS
