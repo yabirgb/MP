@@ -10,7 +10,7 @@ ZIP=./zip
 # -g compila en modo "depuración"
 OPT=-Wall -g
 # Nombre de la práctica
-PRJ=practica5
+PRJ=practica6
 
 # Las macros se usan en las reglas del makefile como si fuesen variables
 # que se sustituyen por su valor definido anteriormente
@@ -28,12 +28,16 @@ $(BIN)/testplano: $(OBJ)/testplano.o $(LIB)/libimagen.a
 
 $(BIN)/testimagen: $(OBJ)/testimagen.o $(LIB)/libimagen.a
 	g++ $(OBJ)/testimagen.o -L$(LIB) -limagen -o $@
+	
+$(BIN)/testMorphing: $(OBJ)/testMorphing.o $(LIB)/libimagen.a
+	g++ $(OBJ)/testMorphing.o -L$(LIB) -limagen -o $@
+
 
 #===============
 #  BIBLIOTECAS
 #===============
 
-$(LIB)/libimagen.a: $(OBJ)/imagen.o $(OBJ)/pgm.o $(OBJ)/byte.o
+$(LIB)/libimagen.a: $(OBJ)/imagen.o $(OBJ)/pgm.o $(OBJ)/byte.o $(OBJ)/celda.o $(OBJ)/lista.o
 	ar rvs $@ $^
 
 #===============
@@ -57,6 +61,12 @@ $(OBJ)/byte.o: $(SRC)/byte.cpp $(INC)/byte.h
 
 $(OBJ)/pgm.o: $(SRC)/pgm.cpp $(INC)/pgm.h
 	g++ $(OPT) -c $(SRC)/pgm.cpp -I$(INC) -o $@
+
+$(OBJ)/lista.o: $(SRC)/lista.cpp $(INC)/lista.h
+	g++ $(OPT) -c $(SRC)/lista.cpp -I$(INC) -o $@
+
+$(OBJ)/celda.o: $(SRC)/celda.cpp $(INC)/lista.h
+	g++ $(OPT) -c $(SRC)/celda.cpp -I$(INC) -o $@
 
 #==============
 #    OTROS

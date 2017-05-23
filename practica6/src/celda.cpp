@@ -21,31 +21,31 @@ Celda::~Celda(){
 		delete img;
 		img = NULL;
 	}
-
-	if (sig != NULL){
-		delete sig;
-		sig = NULL;
-	}
 }
 
 void Celda::setImagen(const Imagen &img){
-	this->img = img;	
+	if(this->img == NULL){
+		delete this->img;
+		this->img = new Imagen;
+	}
+		
+	*this->img = img;
 }
 
-Imagen* getImagen(){
+Imagen* Celda::getImagen() const{
 	Imagen * img = this->img;
 
 	return img;
 }
 
-void setSiguiente(Celda* next){
+void Celda::setSiguiente(Celda* next){
 	if(sig != NULL){
 		delete sig;	
 	}
 	sig = next;
 }
 
-Celda* getSiguiente() const{
+Celda* Celda::getSiguiente() const{
 	Celda* sigue = sig;
 	return sigue;
 }
