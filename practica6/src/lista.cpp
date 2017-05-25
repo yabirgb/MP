@@ -10,14 +10,10 @@ Lista::~Lista(){
 }
 
 void Lista::destruir(){
-	if (lista != NULL){
+	while(lista != NULL){
 		Celda * aux = lista;
-		while(aux->getSiguiente() != NULL){
-			Celda * aux2 = aux->getSiguiente();
-			delete aux;
-			aux = aux2;
-		}
-		
+		lista = aux->getSiguiente();
+		delete aux;
 	}
 }
 
