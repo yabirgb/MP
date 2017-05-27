@@ -26,12 +26,14 @@ int main(int nargs, char** args){
 	const int MAX_NOMBRE = 150;
 	char fichero1[MAX_NOMBRE], fichero2[MAX_NOMBRE], destino[MAX_NOMBRE];
 	int npasos;
-	Lista * lista = new Lista;
+	
 	
 	if(nargs != 5){
 		cerr << "Error en el número de argumentos" << endl;
 		return 1;
 	}
+
+	Lista * lista = new Lista;
 
 	Imagen * imagen1 = new Imagen;
 	Imagen * imagen2 = new Imagen;
@@ -40,12 +42,14 @@ int main(int nargs, char** args){
 	
 	if (!imagen1->leerImagen(fichero1)){
     	cerr << "error leyendo "<< fichero1 << endl;
+		delete lista;
 		delete imagen1;
 		delete imagen2;
     	return 1;
   	}
   	if (!imagen2->leerImagen(fichero2)){
     	cerr << "error leyendo "<< fichero2 << endl;
+		delete lista;
 		delete imagen1;
 		delete imagen2;
     	return 1;
@@ -78,6 +82,7 @@ int main(int nargs, char** args){
 		}
 		else{
 			cerr << "Error guardando la imagen " << nombre << endl;
+			delete lista;
 			delete imagen1;
 			delete imagen2;
 			return 1;

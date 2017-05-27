@@ -10,10 +10,11 @@ Lista::~Lista(){
 }
 
 void Lista::destruir(){
+	Celda * aux = lista;
 	while(lista != NULL){
-		Celda * aux = lista;
 		lista = aux->getSiguiente();
 		delete aux;
+		aux = lista;
 	}
 }
 
@@ -31,8 +32,7 @@ void Lista::insertarFinal(const Imagen &img){
 		lista->setSiguiente(NULL);
 	}
 	else{
-		Celda * aux = new Celda;
-		aux = lista;
+		Celda * aux = lista;
 		while(aux->getSiguiente() != NULL){
 			aux = aux->getSiguiente();
 		}
@@ -45,8 +45,7 @@ void Lista::insertarFinal(const Imagen &img){
 
 int Lista::longitud() const{
 	int longitud = 0;
-	Celda * aux = new Celda;
-	aux = lista;
+	Celda * aux = lista;
 	while (aux->getSiguiente() != NULL){
 		longitud++;
 		aux = aux->getSiguiente();
@@ -55,8 +54,7 @@ int Lista::longitud() const{
 }
 
 Imagen * Lista::get(int pos) const{
-	Celda * aux = new Celda;
-	aux = lista;
+	Celda * aux = lista;
 	for(int i = 0; i < pos && aux->getSiguiente() != NULL; i++){
 		aux = aux->getSiguiente();
 	}
