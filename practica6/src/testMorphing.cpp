@@ -58,7 +58,7 @@ int main(int nargs, char** args){
 	npasos = charToInt(args[3]);
 	cout << npasos << endl;
 	// Hay que comprobar que sean del mismo tamaño
-	for(int k = 0; k < npasos; k++){
+	for(int k = 0; k <= npasos; k++){
 		Imagen * img_salida = new Imagen(imagen1->filas(), imagen1->columnas());
 		for(int i = 0; i < imagen1->filas(); i++){
 			for(int j = 0; j < imagen1->columnas(); j++){
@@ -74,8 +74,8 @@ int main(int nargs, char** args){
 	
 	for(int k = 0; k <= lista->longitud(); k++){
 		Imagen * aux = lista->get(k);
-		char nombre[MAX_NOMBRE] = "file_";
-		sprintf(nombre,"%d",k );
+		char nombre[MAX_NOMBRE];
+		sprintf(nombre, "%s_%d.pgm",destino,k);
 		if (aux->escribirImagen(nombre, false)){
 			cout << nombre << " guardado correctamente \n";
 			cout << "usa: display " << nombre << " para ver el resultado\n";
