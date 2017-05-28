@@ -35,23 +35,19 @@ int main(int nargs, char** args){
 
 	Lista * lista = new Lista;
 
-	Imagen * imagen1 = new Imagen;
-	Imagen * imagen2 = new Imagen;
+	Imagen imagen1;
+	Imagen imagen2;
 	strcpy(fichero1,args[1]);
 	strcpy(fichero2,args[2]);
 	
-	if (!imagen1->leerImagen(fichero1)){
+	if (!imagen1.leerImagen(fichero1)){
     	cerr << "error leyendo "<< fichero1 << endl;
 		delete lista;
-		delete imagen1;
-		delete imagen2;
     	return 1;
   	}
-  	if (!imagen2->leerImagen(fichero2)){
+  	if (!imagen2.leerImagen(fichero2)){
     	cerr << "error leyendo "<< fichero2 << endl;
 		delete lista;
-		delete imagen1;
-		delete imagen2;
     	return 1;
   	}
 	
@@ -59,10 +55,10 @@ int main(int nargs, char** args){
 	cout << npasos << endl;
 	// Hay que comprobar que sean del mismo tamaño
 	for(int k = 0; k <= npasos; k++){
-		Imagen * img_salida = new Imagen(imagen1->filas(), imagen1->columnas());
-		for(int i = 0; i < imagen1->filas(); i++){
-			for(int j = 0; j < imagen1->columnas(); j++){
-				Byte pixel = imagen1->get(j,i) + (k * (imagen2->get(j,i) - imagen1->get(j,i)) / npasos);
+		Imagen * img_salida = new Imagen(imagen1.filas(), imagen1.columnas());
+		for(int i = 0; i < imagen1.filas(); i++){
+			for(int j = 0; j < imagen1.columnas(); j++){
+				Byte pixel = imagen1.get(j,i) + (k * (imagen2.get(j,i) - imagen1.get(j,i)) / npasos);
 				img_salida->set(j,i,pixel);
 			}
 		}
@@ -83,14 +79,10 @@ int main(int nargs, char** args){
 		else{
 			cerr << "Error guardando la imagen " << nombre << endl;
 			delete lista;
-			delete imagen1;
-			delete imagen2;
 			return 1;
 		}
 	}
 
-	delete imagen1;
-	delete imagen2;
 	delete lista;
 
 	return 0;
