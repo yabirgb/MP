@@ -3,23 +3,10 @@
 #include "imagen.h"
 #include <cstring>
 #include <cmath>
+#include <stdlib.h> //Hacer que atoi funcione
 
 using namespace std;
 
-int charToInt(char numero[]){
-	int salida = 0;
-	int num_total = 0;
-	
-	while(numero[num_total] != '\0'){
-		num_total++;
-	}
-
-	for(int k = num_total-1; k >= 0; k--){
-		salida += (numero[k] - '0')*pow(10,num_total-k-1);
-	}
-	
-	return salida;
-}
 
 int main(int nargs, char** args){
 	
@@ -55,7 +42,7 @@ int main(int nargs, char** args){
     	return 1;
   	}
 	
-	npasos = charToInt(args[3]);
+	npasos = atoi(args[3]);
 	cout << npasos << endl;
 	// Hay que comprobar que sean del mismo tamaño
 	for(int k = 0; k <= npasos; k++){
